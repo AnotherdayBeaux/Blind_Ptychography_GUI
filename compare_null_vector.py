@@ -7,21 +7,30 @@ from null_vector_fun import *
 ini = np.random.uniform(size=(256, 256))# common start point
 
 MaxIter = 1000
-rel_im1, patch_1= null_vector_fun(n_vertical = 13, overlap_r = 0.5, tao_ = 0.5, pertb= 0, IterA=MaxIter, IM_ini = ini)
+image_name = 'phantom.png'
+rel_im1, patch_1= null_vector_fun(n_vertical = 13, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 0, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im2, patch_2= null_vector_fun(n_vertical = 13, overlap_r = 0.5, tao_ = 0.5, pertb= 3, IterA=MaxIter, IM_ini = ini)
+rel_im2, patch_2= null_vector_fun(n_vertical = 13, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 3, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im3, patch_3= null_vector_fun(n_vertical = 10, overlap_r = 0.5, tao_ = 0.5, pertb= 0, IterA=MaxIter, IM_ini = ini)
+rel_im3, patch_3= null_vector_fun(n_vertical = 10, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 0, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im4, patch_4= null_vector_fun(n_vertical = 10, overlap_r = 0.5, tao_ = 0.5, pertb= 3, IterA=MaxIter, IM_ini = ini)
+rel_im4, patch_4= null_vector_fun(n_vertical = 10, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 3, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im7, patch_7= null_vector_fun(n_vertical = 10, overlap_r = 0.7, tao_ = 0.5, pertb= 0, IterA=MaxIter, IM_ini = ini)
+rel_im7, patch_7= null_vector_fun(n_vertical = 10, overlap_r = 0.7, tao_ = 0.5,
+                                  pertb= 0, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im8, patch_8= null_vector_fun(n_vertical = 10, overlap_r = 0.7, tao_ = 0.5, pertb= 3, IterA=MaxIter, IM_ini = ini)
+rel_im8, patch_8= null_vector_fun(n_vertical = 10, overlap_r = 0.7, tao_ = 0.5,
+                                  pertb= 3, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im5, patch_5= null_vector_fun(n_vertical = 7, overlap_r = 0.5, tao_ = 0.5, pertb= 0, IterA=MaxIter, IM_ini = ini)
+rel_im5, patch_5= null_vector_fun(n_vertical = 7, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 0, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
-rel_im6, patch_6= null_vector_fun(n_vertical = 7, overlap_r = 0.5, tao_ = 0.5, pertb= 3, IterA=MaxIter, IM_ini = ini)
+rel_im6, patch_6= null_vector_fun(n_vertical = 7, overlap_r = 0.5, tao_ = 0.5,
+                                  pertb= 3, IterA=MaxIter, IM_ini = ini, image_name1=image_name)
 
 
 
