@@ -12,7 +12,7 @@ from blind_ptychography import *
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
+# test
 def null_vector_fun(n_vertical = 8, overlap_r = 0.5,
                     tao_=0.5, pertb= 0, IterA=500, IM_ini=np.random.uniform(size=(256,256)),
                     image_name1 = 'phantom.png',
