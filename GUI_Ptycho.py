@@ -8,7 +8,6 @@ PYTHON TKINTER GUI For phase retreival ptychography
 Email: zheqing@math.ucdavis.edu
 """
 ##### import matplotlib
-###
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
