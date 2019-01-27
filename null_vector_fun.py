@@ -20,15 +20,13 @@ def null_vector_fun(n_vertical = 8, overlap_r = 0.5,
 
     current_location = os.getcwd()
     path_list = current_location.split('/')
-    print(path_list)
     image_path = ''
     for item in path_list:
-        image_path = os.path.join(image_path, '/', item)
-        print(image_path)
+        image_path = os.path.join(image_path, item)
         if item == 'phase retrieval':
             break
-    image_path = os.path.join(image_path, '/', 'image_lib')
-
+    image_path = os.path.join(image_path, 'image_lib')
+    image_path = '/' + image_path
 
     input_parameters = {'n_horizontal': 8, 'n_vertical': n_vertical, 'overlap_r': overlap_r,
                         'bg_value': 'Periodic',
