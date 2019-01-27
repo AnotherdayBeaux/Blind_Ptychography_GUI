@@ -11,10 +11,23 @@ implement null_vector initialization method in ptychography. Raster scan = (pert
 from blind_ptychography import *
 import numpy as np
 import matplotlib.pyplot as plt
-import heapq
+import os
 
+def null_vector_fun(n_vertical = 8, overlap_r = 0.5,
+                    tao_=0.5, pertb= 0, IterA=500, IM_ini=np.random.uniform(size=(256,256)),
+                    image_name1 = 'phantom.png',
+                    image_name2 = 'phantom.png'):
 
-def null_vector_fun(n_vertical = 8, overlap_r = 0.5, tao_=0.5, pertb= 0, IterA=500, IM_ini=np.random.uniform(size=(256,256))):
+    current_location = os.getcwd()
+    path_list = current_location.split('/')
+    print(path_list)
+    image_path = ''
+    for item in path_list:
+        image_path = os.path.join(image_path, '/', item)
+        print(image_path)
+        if item == 'phase retrieval':
+            break
+    image_path = os.path.join(image_path, '/', 'image_lib')
 
 
     input_parameters = {'n_horizontal': 8, 'n_vertical': n_vertical, 'overlap_r': overlap_r,
@@ -24,9 +37,9 @@ def null_vector_fun(n_vertical = 8, overlap_r = 0.5, tao_=0.5, pertb= 0, IterA=5
                         'perturb': pertb,
                         'mask_type': 'IID',
                         'image_type': 'rand_phase',
-                        'image_path': '/Users/Beaux/Desktop/phase retrieval/image_lib/phantom.png',
-                        'image_path_real': '/Users/Beaux/Desktop/phase retrieval/image_lib/phantom.png',
-                        'image_path_imag': '/Barbara256.png',
+                        'image_path': os.path.join(image_path, image_name1),
+                        'image_path_real': os.path.join(image_path, image_name1),
+                        'image_path_imag': os.path.join(image_path, image_name2),
                         'mask_delta': 0.1,
                         'MaxIter': 20,
                         'MaxInner': 30,
