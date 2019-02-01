@@ -1088,7 +1088,9 @@ bg_value_null_v = tk.StringVar()
 Back_Gd_label_null_v=tk.Label(SCAN_TYPE_null_v, text='Bakc_Gd')
 Back_Gd_label_null_v.grid(row=3,column=0, sticky='w')
 Back_Gd_null_v = ttk.Combobox(SCAN_TYPE_null_v,width=8,textvariable=bg_value_null_v)
-Back_Gd_null_v['values']=('Periodic','Dark','Fixed')
+#Back_Gd_null_v['values']=('Periodic','Dark','Fixed')
+# only consider periodic boundary at this moment
+Back_Gd_null_v['values']=('Periodic')
 
 Back_Gd_null_v.bind("<<ComboboxSelected>>",bg_selection_null_v)
 Back_Gd_null_v.grid(row=3,column=1,columnspan=1,sticky='w')

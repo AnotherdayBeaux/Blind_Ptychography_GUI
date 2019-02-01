@@ -25,7 +25,7 @@ rank
 
 }
 '''
-from blind_ptychography import *
+from blind_ptycho_fun import *
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -104,16 +104,16 @@ class null_vector_ptycho(object):
             self.IM1 = self.IM1[:self.Na][:, :self.Nb]  # if image sizes are different, truncate them into smaller image
             self.IM2 = self.IM2[:self.Na][:, :self.Nb]
 
-        # for small image , test code
-        self.SUBIM = 50
-        self.Na, self.Nb = self.SUBIM, self.SUBIM
-
-        self.IM1 = self.IM1[0:self.SUBIM][:, 0:self.SUBIM]  # test for subimage
-        self.IM1 = self.IM1.astype(np.float)
-
-        self.IM2 = self.IM2[0:self.SUBIM][:, 0:self.SUBIM]
-        self.IM2 = self.IM2.astype(np.float)  # test for subimage
-        ##
+        # # for small image , test code
+        # self.SUBIM = 70
+        # self.Na, self.Nb = self.SUBIM, self.SUBIM
+        #
+        # self.IM1 = self.IM1[0:self.SUBIM][:, 0:self.SUBIM]  # test for subimage
+        # self.IM1 = self.IM1.astype(np.float)
+        #
+        # self.IM2 = self.IM2[0:self.SUBIM][:, 0:self.SUBIM]
+        # self.IM2 = self.IM2.astype(np.float)  # test for subimage
+        # ##
 
         self.cim_diff_x, self.cim_diff_y = np.floor(self.Na / (self.n_v - 1)), np.floor(
             self.Na / (self.n_v - 1))  # cim_diff_x = cim_diff_y means square patch
@@ -229,8 +229,6 @@ class null_vector_ptycho(object):
         #
 
         # l_patch_x l_patch_y need fix
-        self.mask_estimate = np.exp(2j * np.pi * self.phase_arg) * \
-                        np.exp(self.mask_delta * 2j * np.pi * (np.random.uniform(size=(self.l_patch_x, self.l_patch_x)) - 1 / 2))
 
         # initial gauss on ptycho_fft(IM)
         self.lambda_t = np.random.uniform(size=self.Z.shape)
@@ -253,7 +251,7 @@ class null_vector_ptycho(object):
 
         # end input parameters
 
-        self.tau = input_parameters['tau']  # means we pick the tau *100 % weak signal
+        self.tau = float(input_parameters['tau'])  # means we pick the tau *100 % weak signal
 
         self.subNa, self.subNb = self.x_c_p.shape
         self.ind_Z = np.zeros(self.Z.shape, dtype=float)
@@ -299,11 +297,17 @@ class null_vector_ptycho(object):
                                  np.ones(self.BackGd.shape, dtype=complex))
         self.nor_ptycho, self.Big_nor = self.ptycho_IM_ifft(self.p_fft_IM, self.Na, self.Nb, self.os_rate, self.mask, self.l_patch, self.x_c_p, self.y_c_p)
         self.Big_nor[self.Big_nor == 0] = 1.0
-        self.rel_error = np.zeros((self.IterA,), dtype='float')
+
+
+        #self.rel_error = np.zeros((self.IterA,), dtype='float') # error recorder
         self.diff_im = 1.0
         self.sqrt_nor_ptycho = np.sqrt(self.nor_ptycho)
         # find start point b
         # b_ini = np.random.uniform(size=(Na, Nb))
+        # IM_ini = image initialization
+        self.IM_ini = np.random.uniform(size=(self.Na, self.Nb)) * \
+                      np.exp(2j*np.pi*np.random.uniform(size=(self.Na, self.Nb)))
+
         self.b_ini = self.IM_ini
         self.b = self.b_ini / np.linalg.norm(self.b_ini, 'fro')
 
@@ -331,7 +335,7 @@ class null_vector_ptycho(object):
             self.nor_x_t.reshape(-1))
         self.rel_im = np.linalg.norm(self.ee_im * self.nor_x_t - self.IM, 'fro') / np.linalg.norm(self.IM, 'fro')
 
-        self.rel_error[self.update_count] = self.rel_im
+        #self.rel_error[self.update_count] = self.rel_im
         print('update_im={} rel_im ={:.4e}'.format(self.update_count, self.rel_im))
 
         self.update_count += 1
