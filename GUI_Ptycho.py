@@ -353,6 +353,13 @@ def clear_all_null_v():
     salt_inten_entry_null_v.delete(0, 'end')
 
 
+def clean_data():
+    edit_text.delete(1.0, 'end')
+
+def clean_data_null_v():
+    edit_text_null_v.delete(1.0, 'end')
+
+
 # for blind ptychography
 def enable_salt():
     if salt_on.get() != 1:
@@ -850,12 +857,19 @@ image_plot_frame.grid(row = 1, column = 0, columnspan=2, sticky='w')
 text_area = tk.Frame(master=page_blind_ptycho)
 text_area.grid(row=1, column=2, columnspan=1, sticky='w')
 text_area_label_frame = tk.LabelFrame(text_area, width=75, height=20, text='show data')
-text_area_label_frame.grid(row = 0, column = 0, rowspan = 1, sticky = 'wnes')
+text_area_label_frame.grid(row = 0, column = 0, rowspan = 3, columnspan=10, sticky = 'wnes')
 
 #blind_ptycho_data = 'kkkkk'
-edit_text = tkst.ScrolledText(master=text_area_label_frame, wrap=tk.WORD, width= 65, height=15)
+edit_text = tkst.ScrolledText(master=text_area_label_frame, wrap=tk.WORD, width=60, height=15)
 edit_text.pack(padx=1, pady=1, fill=tk.BOTH, expand=True)
 #edit_text.insert('insert', blind_ptycho_data)
+
+# clean text data prevent from crashing
+clean_text_data=tk.Button(text_area, text="clean data", command=clean_data, relief='solid')
+clean_text_data.grid(row=3, column = 8, sticky='n')
+clean_text_data.config(height = 2, width = 9)
+
+
 ####
 #### SCAN TYPE #### 
 ####
@@ -1170,11 +1184,16 @@ image_plot_frame_null_v.grid(row = 1, column = 0, columnspan=2, sticky='w')
 text_area_null_v = tk.Frame(master=page_null_vector)
 text_area_null_v.grid(row=1, column=2, columnspan=1, sticky='w')
 text_area_label_frame_null_v = tk.LabelFrame(text_area_null_v, width=75, height=20, text='show data')
-text_area_label_frame_null_v.grid(row = 0, column = 0, rowspan = 1, sticky = 'wnes')
+text_area_label_frame_null_v.grid(row = 0, column = 0, rowspan = 3, columnspan=10, sticky = 'wnes')
 
 # showing data text scrolledtext
-edit_text_null_v = tkst.ScrolledText(master=text_area_label_frame_null_v, wrap=tk.WORD, width= 70, height=15)
+edit_text_null_v = tkst.ScrolledText(master=text_area_label_frame_null_v, wrap=tk.WORD, width=60, height=15)
 edit_text_null_v.pack(padx=1, pady=1, fill=tk.BOTH, expand=True)
+
+# clean text data button
+clean_text_data_null_v=tk.Button(text_area_null_v, text="clean data", command=clean_data_null_v, relief='solid')
+clean_text_data_null_v.grid(row=3, column = 8, sticky='n')
+clean_text_data_null_v.config(height = 2, width = 9)
 ####
 #### SCAN TYPE ####
 ####
