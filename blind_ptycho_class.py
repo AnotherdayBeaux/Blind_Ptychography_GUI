@@ -72,10 +72,10 @@ class blind_ptycho(object):
         self.mask_ty = input_parameters['mask_type']
         if self.mask_ty == 'Fresnel':
             self.mask_type = 2
-            self.fresdevi = input_parameters['fresdevi']
+            self.fresdevi = float(input_parameters['fresdevi'])
         elif self.mask_ty == 'Correlated':
             self.mask_type = 1
-            self.cordist = input_parameters['cordist']
+            self.cordist = float(input_parameters['cordist'])
         else:  # iid mask case
             self.mask_type = 0
 
