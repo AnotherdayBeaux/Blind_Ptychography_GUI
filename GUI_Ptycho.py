@@ -399,10 +399,6 @@ def mkdir(savedata_path_parent):
     return savedata_path
 
 
-def animate_thread(i):
-    threading.Thread(target=animate_plot_blind_ptycho, name='Thread-print', args=(i,)).start()
-
-
 # for blind ptycho
 def run_ptycho():
     get_maxiter_blind_ptycho()
@@ -1126,7 +1122,7 @@ def animate_plot_blind_ptycho(i):
     error_plot.semilogy(Iter_blind_ptycho, res_y_blind_ptycho, 'r-')
     error_plot.semilogy(Iter_blind_ptycho, rel_im_blind_ptycho, 'b:')
     error_plot.semilogy(Iter_blind_ptycho, rel_mask_blind_ptycho, 'k--')
-    error_plot.set_xlim([1, Iter_lim_blind_ptycho])
+    #error_plot.set_xlim([1, Iter_lim_blind_ptycho])
     #error_plot.set_ylim([1e-8, 1.5])
     error_plot.set_title('Error Plot', size='12')
     error_plot.set_xlabel('epoch', fontsize='10')
@@ -1414,7 +1410,7 @@ def animate_plot_null_v(i):
 
     error_plot_null_v.clear()
     error_plot_null_v.semilogy(Iter_null_v, rel_im_null_v, 'k--')
-    error_plot_null_v.set_xlim([1, Iter_lim_null_v])
+    #error_plot_null_v.set_xlim([1, Iter_lim_null_v])
     #error_plot_null_v.set_ylim([1e-8, 1.5])
     error_plot_null_v.set_title('Error Plot', size='12')
     error_plot_null_v.set_xlabel('iter', fontsize='10')

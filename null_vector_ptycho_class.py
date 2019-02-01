@@ -9,21 +9,6 @@ implement null_vector initialization method in ptychography. Raster scan = (pert
                                                              Pertb Raster Scan = (pertb != 0)
 
 
-
-input_parameters = {
-'savedata_path':
-'n_vertical':
-overlap_r'
-bg_value
-rank
-
-
-
-
-
-
-
-}
 '''
 from blind_ptycho_fun import *
 import numpy as np
