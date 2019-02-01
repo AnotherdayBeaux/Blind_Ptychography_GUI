@@ -107,16 +107,16 @@ class blind_ptycho(object):
             self.IM1 = self.IM1[:self.Na][:, :self.Nb]  # if image sizes are different, truncate them into smaller image
             self.IM2 = self.IM2[:self.Na][:, :self.Nb]
 
-        # for small image , test code
-        self.SUBIM = 20
-        self.Na, self.Nb = self.SUBIM, self.SUBIM
-
-        self.IM1 = self.IM1[0:self.SUBIM][:, 0:self.SUBIM]  # test for subimage
-        self.IM1 = self.IM1.astype(np.float)
-
-        self.IM2 = self.IM2[0:self.SUBIM][:, 0:self.SUBIM]
-        self.IM2 = self.IM2.astype(np.float)  # test for subimage
-        ##
+        # # for small image , test code
+        # self.SUBIM = 20
+        # self.Na, self.Nb = self.SUBIM, self.SUBIM
+        #
+        # self.IM1 = self.IM1[0:self.SUBIM][:, 0:self.SUBIM]  # test for subimage
+        # self.IM1 = self.IM1.astype(np.float)
+        #
+        # self.IM2 = self.IM2[0:self.SUBIM][:, 0:self.SUBIM]
+        # self.IM2 = self.IM2.astype(np.float)  # test for subimage
+        # ##
 
 
         self.cim_diff_x, self.cim_diff_y = np.floor(self.Na/(self.n_v-1)), np.floor(
