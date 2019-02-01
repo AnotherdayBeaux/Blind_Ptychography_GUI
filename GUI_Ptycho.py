@@ -45,6 +45,19 @@ def gettipsnv():
                  'Positive integer. Once fixed, the square patch size is determined')
 
 
+def gettipcordist():
+    msb.showinfo('Corr dist',
+                 'Cor Dist regulates the extend that pixels in mask are correlated'
+                 'It is a number in [0, 1]. 0: uncorrelated mask == iid mask'
+                 '1: maximum correlation. Pixels are correlated to each other.')
+def gettipfresdevi():
+    msb.showinfo('Fres Devi',
+                 'Standard deviation we use to generate fresnel mask')
+
+
+
+
+
 def gettipsnh():
     msb.showinfo('n_horizontal','Number of small patches you want to split the image into horizontally.')
 
@@ -840,9 +853,11 @@ image_plot_frame.grid(row = 1, column = 0, columnspan=2, sticky='w')
 # show errors text widget
 text_area = tk.Frame(master=page_blind_ptycho)
 text_area.grid(row=1, column=2, columnspan=1, sticky='w')
+text_area_label_frame = tk.LabelFrame(text_area, width=75, height=20, text='show data')
+text_area_label_frame.grid(row = 0, column = 0, rowspan = 1, sticky = 'wnes')
 
 #blind_ptycho_data = 'kkkkk'
-edit_text = tkst.ScrolledText(master=text_area, wrap=tk.WORD, width= 70, height=15)
+edit_text = tkst.ScrolledText(master=text_area_label_frame, wrap=tk.WORD, width= 65, height=15)
 edit_text.pack(padx=1, pady=1, fill=tk.BOTH, expand=True)
 #edit_text.insert('insert', blind_ptycho_data)
 ####
@@ -926,6 +941,7 @@ cordis_label.grid(row=1, column=0)
 cordis = tk.StringVar()
 cordis_entry = tk.Entry(MASKPROP_TYPE, textvariable=cordis,state='disabled', width=3)
 cordis_entry.grid(row=1,column=1)
+gethelp_cordis = tk.Button(MASKPROP_TYPE, text='tip', command=gettipcordist).grid(row=1, column=2)
 
 # add fresnel deviation
 fresnel_label = tk.Label(MASKPROP_TYPE,text='Fres Devi', state='disabled')
@@ -933,6 +949,7 @@ fresnel_label.grid(row=2, column=0)
 fresnel_devi = tk.StringVar()
 fresnel_devi_entry = tk.Entry(MASKPROP_TYPE, textvariable=fresnel_devi,state='disabled', width=3)
 fresnel_devi_entry.grid(row=2,column=1)
+gethelp_fresdevi = tk.Button(MASKPROP_TYPE, text='tip', command=gettipfresdevi).grid(row=2, column=2)
 
 
 ####
@@ -1156,9 +1173,11 @@ image_plot_frame_null_v.grid(row = 1, column = 0, columnspan=2, sticky='w')
 # show errors text widget
 text_area_null_v = tk.Frame(master=page_null_vector)
 text_area_null_v.grid(row=1, column=2, columnspan=1, sticky='w')
+text_area_label_frame_null_v = tk.LabelFrame(text_area_null_v, width=75, height=20, text='show data')
+text_area_label_frame_null_v.grid(row = 0, column = 0, rowspan = 1, sticky = 'wnes')
 
 # showing data text scrolledtext
-edit_text_null_v = tkst.ScrolledText(master=text_area_null_v, wrap=tk.WORD, width= 70, height=15)
+edit_text_null_v = tkst.ScrolledText(master=text_area_label_frame_null_v, wrap=tk.WORD, width= 70, height=15)
 edit_text_null_v.pack(padx=1, pady=1, fill=tk.BOTH, expand=True)
 ####
 #### SCAN TYPE ####
@@ -1235,6 +1254,8 @@ cordis_label_null_v.grid(row=1, column=0)
 cordis_null_v = tk.StringVar()
 cordis_entry_null_v = tk.Entry(MASKPROP_TYPE_null_v, textvariable=cordis_null_v, state='disabled', width=3)
 cordis_entry_null_v.grid(row=1,column=1)
+gethelp_cordis_null_v = tk.Button(MASKPROP_TYPE_null_v, text='tip', command=gettipcordist).grid(row=1, column=2)
+
 
 # add fresnel deviation
 fresnel_label_null_v = tk.Label(MASKPROP_TYPE_null_v,text='Fres Devi', state='disabled')
@@ -1242,6 +1263,7 @@ fresnel_label_null_v.grid(row=2, column=0)
 fresnel_devi_null_v = tk.StringVar()
 fresnel_devi_entry_null_v = tk.Entry(MASKPROP_TYPE_null_v, textvariable=fresnel_devi_null_v,state='disabled', width=3)
 fresnel_devi_entry_null_v.grid(row=2,column=1)
+gethelp_fresdevi_null_v = tk.Button(MASKPROP_TYPE_null_v, text='tip', command=gettipfresdevi).grid(row=2, column=2)
 
 ####
 ####   image type
