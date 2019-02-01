@@ -73,8 +73,10 @@ class null_vector_ptycho(object):
         self.mask_ty = input_parameters['mask_type']
         if self.mask_ty == 'Fresnel':
             self.mask_type = 2
+            self.fresdevi = float(input_parameters['fresdevi'])
         elif self.mask_ty == 'Correlated':
             self.mask_type = 1
+            self.cordist = float(input_parameters['cordist'])
         else:  # iid mask case
             self.mask_type = 0
 
@@ -126,11 +128,11 @@ class null_vector_ptycho(object):
         self.l_patch = self.l_patch_x
         self.l_path_y = self.l_patch_x
         #
-
+        # fresnel mask center position
         self.beta_1 = self.l_patch_x / 2
         self.beta_2 = self.l_patch_y / 2
-        self.rho = 0.5  # frensel mask parameters
-        self.c_l = (self.l_patch_x, self.l_patch_y)
+        # self.fresdevi standard devi of fresnel mask
+
         self.x_line = np.arange(0, self.Na, self.cim_diff_x)
         self.x_line = self.x_line.reshape(self.x_line.shape[0], 1)
 
@@ -202,10 +204,10 @@ class null_vector_ptycho(object):
 
         elif self.mask_type == 1:  # correlated mask
             self.phase_arg = Cor_Mask(self.l_patch_x,
-                                 int(self.l_patch_x / 2))  # please modify the second entry half distance correlation by default
+                                 int(self.l_patch_x * self.cordist))  # please modify the second entry half distance correlation by default
             self.mask = np.exp(2j * np.pi * self.phase_arg)
         else:  # frensel mask
-            self.phase_arg = 1/2 * self.rho * ((1/self.l_patch_x * (
+            self.phase_arg = 1/2 / self.fresdevi * ((1/self.l_patch_x * (
                     (np.arange(self.l_patch_x, dtype=float)).reshape(self.l_patch_x, 1) - self.beta_1) ** 2) @ np.ones((1, self.l_patch_y),
                                                                                                         dtype=float) + \
                                        1 / self.l_patch_y * (np.ones((self.l_patch_x, 1), dtype=float) @ (

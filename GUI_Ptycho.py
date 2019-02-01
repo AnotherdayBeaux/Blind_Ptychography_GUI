@@ -64,7 +64,7 @@ def bg_selection(*args):
         fixed_bd_value.config(state='disabled', relief='sunken')
 
 
-# for blind_ptychography
+# for null vector
 def bg_selection_null_v(*args):
     if bg_value_null_v.get() == 'Fixed':
         fixed_bd_label_null_v.config(state='normal')
@@ -190,6 +190,57 @@ def getimage_t_null_v():
     return image_type
 
 
+# for blind ptychography
+def enable_mask_blind_ptycho(*args):
+    if mask_type_value.get() == 'Correlated':
+        cordis_label.config(state='normal')
+        cordis_entry.config(state='normal', relief='solid')
+
+        fresnel_label.config(state='disabled')
+        fresnel_devi_entry.config(state='disabled', relief='sunken')
+
+    elif mask_type_value.get() == 'Fresnel':
+        fresnel_label.config(state='normal')
+        fresnel_devi_entry.config(state='normal', relief='solid')
+
+        cordis_label.config(state='disabled')
+        cordis_entry.config(state='disabled', relief='sunken')
+
+    else:
+        cordis_label.config(state='disabled')
+        cordis_entry.config(state='disabled', relief='sunken')
+
+        fresnel_label.config(state='disabled')
+        fresnel_devi_entry.config(state='disabled', relief='sunken')
+
+
+
+# for null vector
+def enable_mask_null_v(*args):
+    if mask_type_value_null_v.get() == 'Correlated':
+        cordis_label_null_v.config(state='normal')
+        cordis_entry_null_v.config(state='normal', relief='solid')
+
+        fresnel_label_null_v.config(state='disabled')
+        fresnel_devi_entry_null_v.config(state='disabled')
+
+    elif mask_type_value_null_v.get() == 'Fresnel':
+        fresnel_label_null_v.config(state='normal')
+        fresnel_devi_entry_null_v.config(state='normal', relief='solid')
+
+        cordis_label_null_v.config(state='disabled')
+        cordis_entry_null_v.config(state='disabled')
+
+    else:
+        cordis_label_null_v.config(state='disabled')
+        cordis_entry_null_v.config(state='disabled')
+
+        fresnel_label_null_v.config(state='disabled')
+        fresnel_devi_entry_null_v.config(state='disabled')
+
+
+
+
 def selectPath_real_null_v():
     path_ = filedialog.askopenfilename(initialdir='/', title='Select file',
                                        filetypes=(('png files', '*.png'), ('jpeg', '*.jpg')))
@@ -232,6 +283,8 @@ def clear_all_blind_ptycho():
     Perturb_entry.delete(0,'end')
     
     mask_type.set('')
+    cordis_entry.delete(0,'end')
+    fresnel_devi_entry.delete(0, 'end')
     image_ty.set(None)
     real_image.deselect()
     com_image.deselect()
@@ -267,6 +320,8 @@ def clear_all_null_v():
     Perturb_entry_null_v.delete(0, 'end')
 
     mask_type_null_v.set('')
+    cordis_entry_null_v.delete(0, 'end')
+    fresnel_devi_entry_null_v.delete(0, 'end')
     image_ty_null_v.set(None)
     real_image_null_v.deselect()
     com_image_null_v.deselect()
@@ -416,6 +471,13 @@ def start_run_blind_ptycho():
     mask_type = mask_type_value.get()
     input_parameters['mask_type']=mask_type
 
+    if mask_type == 'Correlated':
+        cordist = cordis_entry.get()
+        input_parameters['cordist'] = cordist
+    elif mask_type == 'Fresnel':
+        fresdevi = fresnel_devi_entry.get()
+        input_parameters['fresdevi'] = fresdevi
+
     image_type = getimage_t()
     input_parameters['image_type'] = image_type
 
@@ -473,6 +535,12 @@ def start_run_blind_ptycho():
         f.write('perturb = %s \n' % perturb)
 
         f.write('mask_type=%s \n' % mask_type)
+        if mask_type == 'Correlated':
+            f.write('cordis=%s \n' % cordist)
+
+        elif mask_type == 'Fresnel':
+            f.write('fresdevi=%s \n' % fresdevi)
+
         f.write('image_type = %s \n' % image_type)
         if image_type =='CiB_image':
             f.write('real_path = {} \nimag_path = {} \n'.format(image_path['real'], image_path['imag']))
@@ -490,6 +558,7 @@ def start_run_blind_ptycho():
         if salton == 1:
             f.write('salt_prob=%s\n' % salt_prob)
             f.write('salt_inten=%s\n'% salt_intensity)
+
     '''
     input_parameters = {'n_horizontal':6, 'n_vertical': 6, 'overlap_r': 0.5,
                 'bg_value': 'Periodic',
@@ -590,6 +659,12 @@ def start_run_null_v():
 
     mask_type = mask_type_value_null_v.get()
     input_parameters['mask_type'] = mask_type
+    if mask_type == 'Correlated':
+        cordist = cordis_entry_null_v.get()
+        input_parameters['cordist'] = cordist
+    elif mask_type == 'Fresnel':
+        fresdevi = fresnel_devi_entry_null_v.get()
+        input_parameters['fresdevi'] = fresdevi
 
     image_type = getimage_t_null_v()
     input_parameters['image_type'] = image_type
@@ -639,6 +714,13 @@ def start_run_null_v():
         f.write('perturb = %s \n' % perturb)
 
         f.write('mask_type=%s \n' % mask_type)
+
+        if mask_type == 'Correlated':
+            f.write('cordis=%s \n' % cordist)
+
+        elif mask_type == 'Fresnel':
+            f.write('fresdevi=%s \n' % fresdevi)
+
         f.write('image_type = %s \n' % image_type)
         if image_type == 'CiB_image':
             f.write('real_path = {} \nimag_path = {} \n'.format(image_path['real'], image_path['imag']))
@@ -696,22 +778,22 @@ def start_run_null_v():
             recon_im_null_v = np.real(x_t)
 
 
-    plt.imshow(recon_im_null_v, cmap='gray')
-    plt.title('pert={} patch={} olr={}'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    savefig_path = os.path.join(savedata_path, 'fig')
-    save_path = os.path.join(savefig_path, 'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    plt.savefig(save_path)
-    plt.close()
-
-    plt.semilogy(Iter_null_v, rel_im_null_v, 'k--', label = 'image rel err')
-    plt.xlabel('iter')
-    plt.ylabel('error')
-    plt.title('error plot')
-
-    save_path = os.path.join(savefig_path,
-                             'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    plt.savefig(save_path)
-    plt.close()
+    # plt.imshow(recon_im_null_v, cmap='gray')
+    # plt.title('pert={} patch={} olr={}'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
+    # savefig_path = os.path.join(savedata_path, 'fig')
+    # save_path = os.path.join(savefig_path, 'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
+    # plt.savefig(save_path)
+    # plt.close()
+    #
+    # plt.semilogy(Iter_null_v, rel_im_null_v, 'k--', label = 'image rel err')
+    # plt.xlabel('iter')
+    # plt.ylabel('error')
+    # plt.title('error plot')
+    #
+    # save_path = os.path.join(savefig_path,
+    #                          'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
+    # plt.savefig(save_path)
+    # plt.close()
 
 
 #######################################################################    
@@ -835,7 +917,23 @@ mask_type_label=tk.Label(MASKPROP_TYPE, text='mask type')
 mask_type_label.grid(row=0, column=0, sticky='w')
 mask_type = ttk.Combobox(MASKPROP_TYPE,width=15,textvariable=mask_type_value)
 mask_type['values']=('Fresnel','Correlated','IID')
+mask_type.bind("<<ComboboxSelected>>", enable_mask_blind_ptycho)
 mask_type.grid(row=0,column=1,padx=3,pady=3,sticky='w')
+
+# add correlate distance.
+cordis_label = tk.Label(MASKPROP_TYPE,text='Corr Dist', state='disabled')
+cordis_label.grid(row=1, column=0)
+cordis = tk.StringVar()
+cordis_entry = tk.Entry(MASKPROP_TYPE, textvariable=cordis,state='disabled', width=3)
+cordis_entry.grid(row=1,column=1)
+
+# add fresnel deviation
+fresnel_label = tk.Label(MASKPROP_TYPE,text='Fres Devi', state='disabled')
+fresnel_label.grid(row=2, column=0)
+fresnel_devi = tk.StringVar()
+fresnel_devi_entry = tk.Entry(MASKPROP_TYPE, textvariable=fresnel_devi,state='disabled', width=3)
+fresnel_devi_entry.grid(row=2,column=1)
+
 
 ####
 ####   image type
@@ -1128,7 +1226,22 @@ mask_type_label_null_v = tk.Label(MASKPROP_TYPE_null_v, text='mask type')
 mask_type_label_null_v.grid(row=0, column=0, sticky='w')
 mask_type_null_v = ttk.Combobox(MASKPROP_TYPE_null_v,width=15,textvariable=mask_type_value_null_v)
 mask_type_null_v['values']=('Fresnel','Correlated','IID')
+mask_type_null_v.bind("<<ComboboxSelected>>",enable_mask_null_v)
 mask_type_null_v.grid(row=0,column=1,padx=3,pady=3,sticky='w')
+
+# add correlate distance.
+cordis_label_null_v = tk.Label(MASKPROP_TYPE_null_v,text='Corr Dist', state='disabled')
+cordis_label_null_v.grid(row=1, column=0)
+cordis_null_v = tk.StringVar()
+cordis_entry_null_v = tk.Entry(MASKPROP_TYPE_null_v, textvariable=cordis_null_v, state='disabled', width=3)
+cordis_entry_null_v.grid(row=1,column=1)
+
+# add fresnel deviation
+fresnel_label_null_v = tk.Label(MASKPROP_TYPE_null_v,text='Fres Devi', state='disabled')
+fresnel_label_null_v.grid(row=2, column=0)
+fresnel_devi_null_v = tk.StringVar()
+fresnel_devi_entry_null_v = tk.Entry(MASKPROP_TYPE_null_v, textvariable=fresnel_devi_null_v,state='disabled', width=3)
+fresnel_devi_entry_null_v.grid(row=2,column=1)
 
 ####
 ####   image type
