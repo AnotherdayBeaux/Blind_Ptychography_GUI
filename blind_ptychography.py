@@ -440,108 +440,12 @@ def getrid_LPS_m(f_0, f_k, n):
     
     rec_l1, rec_k1 = -angle_exp[0][9]/9/2/np.pi*Nb, -angle_exp[9][0]/9/2/np.pi*Na
 
-    return rec_k1, rec_l1   
-    
-def Proj_on_Image(Na,Nb, os_rate,lambda_t, mask_estimate, l_patch, x_c_p, y_c_p, DR_update_fun ):
-
-    x_t, Big_x_t = ptycho_Im_PeriB_ifft(lambda_t,Na,Nb,os_rate,mask_estimate,l_patch,x_c_p,y_c_p)
-    x__t=x_t/nor_ptycho
-    Big_x__t=Big_x_t/Big_nor
-    AAlambda=ptycho_Im_PeriB_fft(x__t,os_rate,mask,mask_estimate,l_patch,x_c_p,y_c_p,Big_x__t)
-    y_tplus1=AAlambda
-    
-    ylambda_k=2*y_tplus1-lambda_t
-    Q=np.abs(ylambda_k)
-    
-    rot_z=poisson_likely(Q,Z,gamma)
-    
-    z_tplus1=rot_z*ylambda_k/Q
-    lambda_t=lambda_t+z_tplus1-y_tplus1
-    
-    return lambda_t, x__t, Big_x__t
-    
-    
-    
-    
-    
-    
-    
-def Image_update(Na,Nb, os_rate,lambda_t, mask_estimate, l_patch, x_c_p, y_c_p, DR_update_fun ):
-    MaxIter_u_ip=30
-    update_im=1
-    #Na, Nb= IM.shape
-    IM_=np.ones((Na, Nb),dtype = 'float')
-    p_fft_IM=ptycho_Im_PeriB_fft(IM_,os_rate,mask_estimate,l_patch,x_c_p,y_c_p)
-    nor_ptycho, Big_nor = ptycho_Im_PeriB_ifft(p_fft_IM,Na,Nb,os_rate,mask_estimate,l_patch,x_c_p,y_c_p)
-    residual_x=np.array([0,0,0])
-    resi_diff_im=1
-    
-    while (update_im < 5  or ( update_im < MaxIter_u_ip  and resi_diff > 1e-5)):
-        
-        lambda_t, x__t, Big_x__t = Proj_on_Image(Na,Nb, os_rate,lambda_t, mask_estimate, l_patch, x_c_p, y_c_p, DR_update_fun )
-        
-        
-    
-    
-        # calculate the termination error
-        #ee=np.abs(IM.reshape(-1).conj().dot(x__t.reshape(-1)))/IM.reshape(-1).conj().dot(x__t.reshape(-1))
-        #rel_xx = np.linalg.norm(ee*x__t-IM, 'fro')/np.linalg.norm(IM,'fro')
-        
-        res_x = np.linalg.norm(np.abs(Y)-np.abs(y_tplus1),'fro')/norm_Y
-        
-        residual_x[update_im+2]= res_x
-        resi_diff_im=1/3*np.linalg.norm(residual_x[update_im:update_im+3]-residual_x[update_im-1:update_im+2],1)/res_x
-        update_im=update_im+1
-        
-    return  lambda_t, x__t, Big_x__t
-    
-    
-    
-    
-def Proj_on_Mask(self, x__t):
-    nor_mask_tplus1=pr_phase_perib_ifft(fft_phase,os_rate,x__t,l_patch,x_c_p,y_c_p)/nor_phase
-    
-    mask_tplus1=nor_mask_tplus1/np.abs(nor_mask_tplus1)  # enforce unimodular constraint
-    fft_phase_1=pr_phase_perib_fft(mask_tplus1,os_rate,x__t,l_patch,x_c_p,y_c_p)
-    Q_phase=2*fft_phase_1-fft_phase
-    Q=np.abs(Q_phase)
-    rot_z = poisson_likely(Q,Z,gamma)
-    z_mask_tplus1 = rot_z*Q_phase/Q
-    fft_phase=fft_phase+z_mask_tplus1-fft_phase_1
-    
-    
-def Mask_update(l_patch, os_rate, x__t, x_c_p, y_c_p):
-    MaxIter_u_ip = 30 ## self.
-    update_phase=1
-    ### normalize factor
-    phase_=np.ones((l_patch,l_patch))
-    fft_phase_=pr_phase_perib_fft(phase_,os_rate,x__t,l_patch,x_c_p,y_c_p)
-    nor_phase=pr_phase_perib_ifft(fft_phase_,os_rate,x__t,l_patch,x_c_p,y_c_p)
-    
-    
-    fft_phase=y_tplus1  ##
-    residual_xx=np.array([0,0,0])
-    resi_diff_phase=1
-    
-    while  (update_phase < 5 or ( update_phase < MaxIter_u_ip and resi_diff_phase > 1e-5)):
-        
-        Proj_on_Mask(self)
-        
-        
-        # calculate the termination error
-        res_mask=np.linalg.norm(np.abs(fft_phase_1)-b,'fro')/norm_Y  # b =sqrt(Z)
-        residual_xx[update_phase+2]= res_mask
-        resi_diff_phase=1/3* np.linalg.norm(residual_xx[update_phase:update_phase+3]-residual_xx[update_phase-1:update_phase+2],1)/res_mask
-        update_phase= update_phase+1
-  
+    return rec_k1, rec_l1
 
 
 
 
-
-
-
-def plot():
+def plot(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, x__t, mask_estimate):
     
     
     plt.figure(0)
@@ -991,7 +895,7 @@ def ptycho(input_parameters):
             fft_phase_1=pr_phase_fft(mask_tplus1, os_rate, x__t, l_patch, x_c_p, y_c_p, Big_x__t)
             Q_phase = 2*fft_phase_1-fft_phase
             Q=np.abs(Q_phase)
-            rot_z = poisson_likely(Q,Z,gamma)
+            rot_z = DR_update_fun(Q,Z,gamma)
             z_mask_tplus1 = rot_z*Q_phase/Q
             fft_phase=fft_phase+z_mask_tplus1-fft_phase_1
             
@@ -1029,7 +933,7 @@ def ptycho(input_parameters):
         # relative_DR_xIMsmall1_5[count_DR-1] =rel_x
         relative_DR_maskLPS[count_DR-1] = rel_LPS_mask
 
-        with open(os.path.join(savedata_path, 'plotdata.txt'),'a') as f:
+        with open(os.path.join(savedata_path, 'plot_data.txt'), 'a') as f:
             f.write('{},{},{},{}\n'.format(count_DR, res_x, rel_LPS_x, rel_LPS_mask))
 
         recon_x_t = LPS_x_t * ee
@@ -1055,6 +959,7 @@ def ptycho(input_parameters):
         '{:.4e}'.format(res_x)))
 
         count_DR += 1
+
 
     #f.close()
 
