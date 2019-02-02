@@ -567,7 +567,7 @@ def import_param_null_v():
     # generate workspace path
     workspace_path = os.getcwd()
     initialdir = os.path.join(workspace_path, 'workspace')
-    path_ = filedialog.askopenfilename(initialdir=initialdir, title='Please Select "config_bp"',
+    path_ = filedialog.askopenfilename(initialdir=initialdir, title='Please Select "config_nv"',
                                        filetypes=(('Text files', '*.txt'),))
     pulldata = open(path_).read()
     config_param = pulldata.split('\n')
