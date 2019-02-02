@@ -805,7 +805,6 @@ def start_run_null_v():
     plt.close(0)
 
     plt.figure(1)
-
     plt.semilogy(Iter_null_v, rel_im_null_v, 'k--', label='image rel err')
     plt.grid(True)
     plt.xlabel('iter')
