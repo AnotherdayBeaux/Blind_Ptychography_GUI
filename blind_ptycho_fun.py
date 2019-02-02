@@ -431,8 +431,16 @@ def Cor_Mask(m, c_l):
     Cor_mask = np.angle(Cor_mask) / 2 / np.pi
     return Cor_mask
 
+# position is a list of tuples, [(p1x, p1y), (p2x, p2y), (p3x, p3y)] which picks three non zero point of mask/image
+# p1x p1y -- -- -- -- - - - - p2x p2y
+#  \
+#  \
+#  \
+# p3x p3y
 
+# n, size of mask/image
 def getrid_LPS_m(f_0, f_k, n):
+
     Na, Nb = n[0], n[1]
 
     exp_2pikn = f_0 * f_k.conj()

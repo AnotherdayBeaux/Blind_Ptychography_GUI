@@ -226,7 +226,11 @@ class blind_ptycho(object):
         self.im_y_grid = np.ones((self.Na, 1), dtype='float') * np.arange(self.Nb).reshape(1, self.Nb)
         self.mask_x_grid = np.arange(self.l_patch_x).reshape(self.l_patch_x, 1) * np.ones((1, self.l_patch_x), dtype='float')
         self.mask_y_grid = np.ones((self.l_patch_x, 1), dtype='float') * np.arange(self.l_patch_x).reshape(1, self.l_patch_x)
-        #
+
+
+
+
+
 
         # l_patch_x l_patch_y need fix
         self.mask_estimate = np.exp(2j * np.pi * self.phase_arg) * \
@@ -355,7 +359,7 @@ class blind_ptycho(object):
         self.mask_estimate = self.mask_tplus1
         self.lambda_t = self.fft_phase_1
 
-
+        # calculate mask LPS error
         self.ee_mask = np.abs(self.mask.reshape(-1).conj().dot(self.mask_estimate.reshape(-1))) / self.mask.reshape(
             -1).conj().dot(
             self.mask_estimate.reshape(-1))
