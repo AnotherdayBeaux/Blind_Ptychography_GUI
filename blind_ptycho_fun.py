@@ -447,7 +447,7 @@ def getrid_LPS_m(f_0, f_k, n):
     calib_exp = exp_2pikn * exp_2pikn[0][0].conj()
     angle_exp = np.angle(calib_exp)
 
-    rec_l1, rec_k1 = -angle_exp[0][9] / 9 / 2 / np.pi * Nb, -angle_exp[9][0] / 9 / 2 / np.pi * Na
+    rec_k1, rec_l1 = -angle_exp[9][0] / 9 / 2 / np.pi * Na, -angle_exp[0][9] / 9 / 2 / np.pi * Nb
 
     return rec_k1, rec_l1
 

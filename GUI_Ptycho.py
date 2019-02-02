@@ -73,6 +73,7 @@ def bg_selection(*args):
         fixed_bd_value.config(state='normal',relief='solid')
         
     if bg_value.get() != 'Fixed':
+        fixed_bd_value.delete(0,'end')
         fixed_bd_label.config(state='disabled')
         fixed_bd_value.config(state='disabled', relief='sunken')
 
@@ -84,6 +85,7 @@ def bg_selection_null_v(*args):
         fixed_bd_value_null_v.config(state='normal', relief='solid')
 
     if bg_value_null_v.get() != 'Fixed':
+        fixed_bd_value_null_v.delete(0, 'end')
         fixed_bd_label_null_v.config(state='disabled')
         fixed_bd_value_null_v.config(state='disabled', relief='sunken')
 
@@ -209,6 +211,7 @@ def enable_mask_blind_ptycho(*args):
         cordis_label.config(state='normal')
         cordis_entry.config(state='normal', relief='solid')
 
+        fresnel_devi.set('')
         fresnel_label.config(state='disabled')
         fresnel_devi_entry.config(state='disabled', relief='sunken')
 
@@ -216,13 +219,16 @@ def enable_mask_blind_ptycho(*args):
         fresnel_label.config(state='normal')
         fresnel_devi_entry.config(state='normal', relief='solid')
 
+        cordis.set('')
         cordis_label.config(state='disabled')
         cordis_entry.config(state='disabled', relief='sunken')
 
     else:
+        cordis.set('')
         cordis_label.config(state='disabled')
         cordis_entry.config(state='disabled', relief='sunken')
 
+        fresnel_devi.set('')
         fresnel_label.config(state='disabled')
         fresnel_devi_entry.config(state='disabled', relief='sunken')
 
@@ -234,22 +240,26 @@ def enable_mask_null_v(*args):
         cordis_label_null_v.config(state='normal')
         cordis_entry_null_v.config(state='normal', relief='solid')
 
+        fresnel_devi_null_v.set('')
         fresnel_label_null_v.config(state='disabled')
-        fresnel_devi_entry_null_v.config(state='disabled')
+        fresnel_devi_entry_null_v.config(state='disabled', relief='sunken')
 
     elif mask_type_value_null_v.get() == 'Fresnel':
         fresnel_label_null_v.config(state='normal')
         fresnel_devi_entry_null_v.config(state='normal', relief='solid')
 
+        cordis_null_v.set('')
         cordis_label_null_v.config(state='disabled')
-        cordis_entry_null_v.config(state='disabled')
+        cordis_entry_null_v.config(state='disabled', relief='sunken')
 
     else:
+        cordis_null_v.set('')
         cordis_label_null_v.config(state='disabled')
-        cordis_entry_null_v.config(state='disabled')
+        cordis_entry_null_v.config(state='disabled', relief='sunken')
 
+        fresnel_devi_null_v.set('')
         fresnel_label_null_v.config(state='disabled')
-        fresnel_devi_entry_null_v.config(state='disabled')
+        fresnel_devi_entry_null_v.config(state='disabled', relief='sunken')
 
 
 
@@ -289,23 +299,45 @@ def clear_all_blind_ptycho():
     n_vertical_entry.delete(0,'end')
     overlap_r_entry.delete(0,'end')
     Back_Gd.set('')
+
     fixed_bd_value.delete(0,'end')
+    fixed_bd_label.config(state='disabled')
+    fixed_bd_value.config(state='disabled', relief='sunken')
+
     rank_1.deselect()
     full_rank.deselect()
     rank_per.set(None)
     Perturb_entry.delete(0,'end')
     
     mask_type.set('')
+
     cordis_entry.delete(0,'end')
+    cordis_label.config(state='disabled')
+    cordis_entry.config(state='disabled', relief='sunken')
+
     fresnel_devi_entry.delete(0, 'end')
+    fresnel_label.config(state='disabled')
+    fresnel_devi_entry.config(state='disabled', relief='sunken')
+
     image_ty.set(None)
     real_image.deselect()
     com_image.deselect()
     two_image.deselect()
     image_path_real_entry.delete(0,'end')
+    image_path_real_entry.config(state='disabled', relief='sunken')
+    image_path_real_button.config(state='disabled')
+
     image_path_rand_entry.delete(0,'end')
+    image_path_rand_entry.config(state='disabled', relief='sunken')
+    image_path_rand_button.config(state='disabled')
+
     image_path_CiB_real_entry.delete(0,'end')
     image_path_CiB_imag_entry.delete(0,'end')
+    image_path_CiB_real_entry.config(state='disabled', relief='sunken')
+    image_path_CiB_real_button.config(state='disabled')
+    image_path_CiB_imag_entry.config(state='disabled', relief='sunken')
+    image_path_CiB_imag_button.config(state='disabled')
+
 
     mask_delta_entry.delete(0,'end')
     MaxIter_entry.delete(0,'end')
@@ -317,8 +349,13 @@ def clear_all_blind_ptycho():
     gaus_button.deselect()
     gamma_entry.delete(0,'end')
     salt_on_checkbutton.deselect()
+
     salt_noise_entry.delete(0,'end')
     salt_inten_entry.delete(0,'end')
+    salt_noise_entry.config(state='disabled', relief='sunken')
+    salt_noise_label.config(state='disabled')
+    salt_inten_entry.config(state='disabled', relief='sunken')
+    salt_inten_label.config(state='disabled')
 
 
 # for blind ptycho clear all selection
@@ -334,23 +371,44 @@ def clear_all_null_v():
 
     mask_type_null_v.set('')
     cordis_entry_null_v.delete(0, 'end')
+    cordis_label_null_v.config(state='disabled')
+    cordis_entry_null_v.config(state='disabled', relief='sunken')
+
     fresnel_devi_entry_null_v.delete(0, 'end')
+    fresnel_label_null_v.config(state='disabled')
+    fresnel_devi_entry_null_v.config(state='disabled', relief='sunken')
+
     image_ty_null_v.set(None)
     real_image_null_v.deselect()
     com_image_null_v.deselect()
     two_image_null_v.deselect()
     image_path_real_entry_null_v.delete(0, 'end')
+    image_path_real_entry_null_v.config(state='disabled', relief='sunken')
+    image_path_real_button_null_v.config(state='disabled')
+
     image_path_rand_entry_null_v.delete(0, 'end')
+    image_path_rand_entry_null_v.config(state='disabled', relief='sunken')
+    image_path_rand_button_null_v.config(state='disabled')
+
     image_path_CiB_real_entry_null_v.delete(0, 'end')
     image_path_CiB_imag_entry_null_v.delete(0, 'end')
+    image_path_CiB_real_entry_null_v.config(state='disabled', relief='sunken')
+    image_path_CiB_real_button_null_v.config(state='disabled')
+    image_path_CiB_imag_entry_null_v.config(state='disabled', relief='sunken')
+    image_path_CiB_imag_button_null_v.config(state='disabled')
 
     MaxIter_entry_null_v.delete(0, 'end')
     Toler_entry_null_v.delete(0, 'end')
     os_Rate_entry_null_v.delete(0, 'end')
     tau_entry_null_v.delete(0,'end')
     salt_on_checkbutton_null_v.deselect()
+
     salt_noise_entry_null_v.delete(0, 'end')
     salt_inten_entry_null_v.delete(0, 'end')
+    salt_noise_entry_null_v.config(state='disabled', relief='sunken')
+    salt_noise_label_null_v.config(state='disabled')
+    salt_inten_entry_null_v.config(state='disabled', relief='sunken')
+    salt_inten_label_null_v.config(state='disabled')
 
 
 def clean_data():
@@ -385,6 +443,230 @@ def enable_salt_null_v():
         salt_noise_label_null_v.config(state='normal')
         salt_inten_entry_null_v.config(state='normal', relief='solid')
         salt_inten_label_null_v.config(state='normal')
+
+
+# for blind ptycho, import previous config
+def import_param():
+    # generate workspace path
+    workspace_path = os.getcwd()
+    initialdir = os.path.join(workspace_path, 'workspace')
+    path_ = filedialog.askopenfilename(initialdir=initialdir,title='Please Select "config_bp"',filetypes = (('Text files','*.txt'),))
+    pulldata = open(path_).read()
+    config_param = pulldata.split('\n')
+    input_from_import = {}
+    for line in config_param:
+        if len(line) > 1:
+            param_key, param_value = line.split('=')
+            input_from_import[param_key] = param_value
+    n_v = input_from_import['n_vertical']
+    n_vertical_entry.insert(0, n_v)
+
+    OLR = input_from_import['overlap_r']
+    overlap_r_entry.insert(0, OLR)
+
+    bg = input_from_import['background']
+    bg_value.set(bg)
+
+    if bg == 'Fixed':
+        fixed_bd_v = input_from_import['fixed_bd_value']
+        fixed_bd_label.config(state='normal')
+        fixed_bd_value.config(state='normal', relief='solid')
+        fixed_bd_value.insert(0, fixed_bd_v)
+
+    rank = input_from_import['rank']
+    rank_per.set(rank)
+
+    perturb = input_from_import['perturb']
+    Perturb.set(perturb)
+
+
+    mask_type = input_from_import['mask_type']
+    mask_type_value.set(mask_type)
+    if mask_type == 'Correlated':
+
+        cordist = input_from_import['cordis']
+        cordis_label.config(state='normal')
+        cordis_entry.config(state='normal', relief='solid')
+        cordis.set(cordist)
+
+    elif mask_type == 'Fresnel':
+
+        fresdevi = input_from_import['fresdevi']
+        fresnel_label.config(state='normal')
+        fresnel_devi_entry.config(state='normal', relief='solid')
+        fresnel_devi.set(fresdevi)
+
+    image_type = input_from_import['image_type']
+    image_ty.set(image_type)
+    if image_type == 'real':
+        image_path = input_from_import['image_path']
+
+        image_path_real_entry.config(state='normal', relief='solid')
+        image_path_real_button.config(state='normal')
+        image_path_real.set(image_path)
+
+
+    elif image_type =='rand_phase':
+        image_path = input_from_import['image_path']
+
+        image_path_rand_entry.config(state='normal', relief='solid')
+        image_path_rand_button.config(state='normal')
+        image_path_rand.set(image_path)
+
+
+    else: # CiB case
+        image_path_CiBreal = input_from_import['real_path']
+        image_path_CiBimag = input_from_import['imag_path']
+
+        image_path_CiB_real_entry.config(state='normal', relief='solid')
+        image_path_CiB_real_button.config(state='normal')
+        image_path_CiB_imag_entry.config(state='normal', relief='solid')
+        image_path_CiB_imag_button.config(state='normal')
+        image_path_CiB_real.set(image_path_CiBreal)
+        image_path_CiB_imag.set(image_path_CiBimag)
+
+    mask_dlt =input_from_import['mask_delta']
+    mask_delta.set(mask_dlt)
+
+    MaxIt = input_from_import['MaxIter']
+    MaxIter.set(MaxIt)
+
+    MaxInner = input_from_import['MaxInner']
+    MaxInnerLoop.set(MaxInner)
+
+    Tol = input_from_import['Toler']
+    Toler.set(Tol)
+
+    os_rate = input_from_import['os_rate']
+    os_Rate.set(os_rate)
+
+    pois_or_gau =input_from_import['pois_or_gau']
+    pois_gau.set(pois_or_gau)
+
+    ga = input_from_import['gamma']
+    gamma.set('ga')
+
+    salton = int(input_from_import['salt_on'])
+    salt_on.set(salton)
+
+    if salton == 1:
+
+        salt_prob = input_from_import['salt_prob']
+        salt_noise_entry.config(state='normal', relief='solid')
+        salt_noise_label.config(state='normal')
+        salt_noise.set(salt_prob)
+
+        salt_intensity = input_from_import['salt_inten']
+        salt_inten_entry.config(state='normal', relief='solid')
+        salt_inten_label.config(state='normal')
+        salt_inten.set(salt_intensity)
+
+
+# for null vector, import previous config
+def import_param_null_v():
+    # generate workspace path
+    workspace_path = os.getcwd()
+    initialdir = os.path.join(workspace_path, 'workspace')
+    path_ = filedialog.askopenfilename(initialdir=initialdir, title='Please Select "config_bp"',
+                                       filetypes=(('Text files', '*.txt'),))
+    pulldata = open(path_).read()
+    config_param = pulldata.split('\n')
+    input_from_import = {}
+    for line in config_param:
+        if len(line) > 1:
+            param_key, param_value = line.split('=')
+            input_from_import[param_key] = param_value
+    n_v = input_from_import['n_vertical']
+    n_vertical_entry_null_v.insert(0, n_v)
+
+    OLR = input_from_import['overlap_r']
+    overlap_r_entry_null_v.insert(0, OLR)
+
+    bg = input_from_import['background']
+    bg_value_null_v.set(bg)
+
+    # don't consider fixed/ dark boundary at this moment
+    # if bg == 'Fixed':
+    #     fixed_bd_v = input_from_import['fixed_bd_value']
+    #     fixed_bd_label_null_v.config(state='normal')
+    #     fixed_bd_value_null_v.config(state='normal', relief='solid')
+    #     fixed_bd_value_null_v.insert(0, fixed_bd_v)
+
+    rank = input_from_import['rank']
+    rank_per_null_v.set(rank)
+
+    perturb = input_from_import['perturb']
+    Perturb_null_v.set(perturb)
+
+    mask_type = input_from_import['mask_type']
+    mask_type_value_null_v.set(mask_type)
+    if mask_type == 'Correlated':
+
+        cordist = input_from_import['cordis']
+        cordis_label_null_v.config(state='normal')
+        cordis_entry_null_v.config(state='normal', relief='solid')
+        cordis_null_v.set(cordist)
+
+    elif mask_type == 'Fresnel':
+
+        fresdevi = input_from_import['fresdevi']
+        fresnel_label_null_v.config(state='normal')
+        fresnel_devi_entry_null_v.config(state='normal', relief='solid')
+        fresnel_devi_null_v.set(fresdevi)
+
+    image_type = input_from_import['image_type']
+    image_ty_null_v.set(image_type)
+    if image_type == 'real':
+        image_path = input_from_import['image_path']
+
+        image_path_real_entry_null_v.config(state='normal', relief='solid')
+        image_path_real_button_null_v.config(state='normal')
+        image_path_real_null_v.set(image_path)
+
+
+    elif image_type == 'rand_phase':
+        image_path = input_from_import['image_path']
+
+        image_path_rand_entry_null_v.config(state='normal', relief='solid')
+        image_path_rand_button_null_v.config(state='normal')
+        image_path_rand_null_v.set(image_path)
+
+
+    else:  # CiB case
+        image_path_CiBreal = input_from_import['real_path']
+        image_path_CiBimag = input_from_import['imag_path']
+
+        image_path_CiB_real_entry_null_v.config(state='normal', relief='solid')
+        image_path_CiB_real_button_null_v.config(state='normal')
+        image_path_CiB_imag_entry_null_v.config(state='normal', relief='solid')
+        image_path_CiB_imag_button_null_v.config(state='normal')
+        image_path_CiB_real_null_v.set(image_path_CiBreal)
+        image_path_CiB_imag_null_v.set(image_path_CiBimag)
+
+
+    MaxIt = input_from_import['MaxIter']
+    MaxIter_null_v.set(MaxIt)
+
+    Tol = input_from_import['Toler']
+    Toler_null_v.set(Tol)
+
+    os_rate = input_from_import['os_rate']
+    os_Rate_null_v.set(os_rate)
+
+    salton = int(input_from_import['salt_on'])
+    salt_on_null_v.set(salton)
+
+    if salton == 1:
+        salt_prob = input_from_import['salt_prob']
+        salt_noise_entry_null_v.config(state='normal', relief='solid')
+        salt_noise_label_null_v.config(state='normal')
+        salt_noise_null_v.set(salt_prob)
+
+        salt_intensity = input_from_import['salt_inten']
+        salt_inten_entry_null_v.config(state='normal', relief='solid')
+        salt_inten_label_null_v.config(state='normal')
+        salt_inten_null_v.set(salt_intensity)
+
 
 
 # initialize work folder null_vec_folder and blind_ptycho folder
@@ -541,36 +823,36 @@ def start_run_blind_ptycho():
         salt_intensity = salt_inten.get()
         input_parameters['salt_inten'] = salt_intensity
 
-    with open(os.path.join(savedata_path, 'config.txt'),'w') as f:
-        f.write('n_vertical=%s \n' % n_v)
-        f.write('overlap_r=%s \n' % OLR)
-        f.write('background=%s \n' % bg)
+    with open(os.path.join(savedata_path, 'config_bp.txt'),'w') as f:
+        f.write('n_vertical=%s\n' % n_v)
+        f.write('overlap_r=%s\n' % OLR)
+        f.write('background=%s\n' % bg)  # input_parameters['bg_value']
         if bg == 'Fixed':
-            f.write('fixed_bd_value = %s \n' % fixed_bd_v)
-        f.write('rank = %s \n' % rank)
-        f.write('perturb = %s \n' % perturb)
+            f.write('fixed_bd_value=%s\n' % fixed_bd_v)
+        f.write('rank=%s\n' % rank)
+        f.write('perturb=%s\n' % perturb)
 
-        f.write('mask_type=%s \n' % mask_type)
+        f.write('mask_type=%s\n' % mask_type)
         if mask_type == 'Correlated':
-            f.write('cordis=%s \n' % cordist)
+            f.write('cordis=%s\n' % cordist)
 
         elif mask_type == 'Fresnel':
-            f.write('fresdevi=%s \n' % fresdevi)
+            f.write('fresdevi=%s\n' % fresdevi)
 
-        f.write('image_type = %s \n' % image_type)
+        f.write('image_type=%s\n' % image_type)
         if image_type =='CiB_image':
-            f.write('real_path = {} \nimag_path = {} \n'.format(image_path['real'], image_path['imag']))
+            f.write('real_path={}\nimag_path={}\n'.format(image_path['real'], image_path['imag']))
         else:
-            f.write('image_path = {} \n'.format(image_path))
+            f.write('image_path={}\n'.format(image_path))
 
-        f.write('mask_delta=%s \n' % mask_dlt)
-        f.write('MaxIter=%s \n' % MaxIt)
+        f.write('mask_delta=%s\n' % mask_dlt)
+        f.write('MaxIter=%s\n' % MaxIt)
         f.write('MaxInner=%s\n' % MaxInner)
-        f.write('Toler=%s \n' % Tol)
-        f.write('os_rate=%s \n' % os_rate)
-        f.write('pois_or_gau = %s \n' % pois_or_gau)
-        f.write('gamma = %s \n' % ga)
-        f.write('salt_on = %s \n' % salton)
+        f.write('Toler=%s\n' % Tol)
+        f.write('os_rate=%s\n' % os_rate)
+        f.write('pois_gau=%s\n' % pois_or_gau)
+        f.write('gamma=%s\n' % ga)
+        f.write('salt_on=%s\n' % salton)
         if salton == 1:
             f.write('salt_prob=%s\n' % salt_prob)
             f.write('salt_inten=%s\n'% salt_intensity)
@@ -597,6 +879,7 @@ def start_run_blind_ptycho():
                 'pois_gau':'poisson',
                 'savedata_path': savedata_path
                         } '''
+    print(input_parameters)
     experi = blind_ptycho(input_parameters)
     res_x = 1
     count_DR = 1
@@ -720,34 +1003,34 @@ def start_run_null_v():
         salt_intensity = salt_inten_null_v.get()
         input_parameters['salt_inten'] = salt_intensity
 
-    with open(os.path.join(savedata_path, 'config.txt'), 'w') as f:
-        f.write('n_vertical=%s \n' % n_v)
-        f.write('overlap_r=%s \n' % OLR)
-        f.write('background=%s \n' % bg)
+    with open(os.path.join(savedata_path, 'config_nv.txt'), 'w') as f:
+        f.write('n_vertical=%s\n' % n_v)
+        f.write('overlap_r=%s\n' % OLR)
+        f.write('background=%s\n' % bg)
         if bg == 'Fixed':
-            f.write('fixed_bd_value = %s \n' % fixed_bd_v)
-        f.write('rank = %s \n' % rank)
-        f.write('perturb = %s \n' % perturb)
+            f.write('fixed_bd_value=%s\n' % fixed_bd_v)
+        f.write('rank=%s\n' % rank)
+        f.write('perturb=%s\n' % perturb)
 
-        f.write('mask_type=%s \n' % mask_type)
+        f.write('mask_type=%s\n' % mask_type)
 
         if mask_type == 'Correlated':
-            f.write('cordis=%s \n' % cordist)
+            f.write('cordis=%s\n' % cordist)
 
         elif mask_type == 'Fresnel':
-            f.write('fresdevi=%s \n' % fresdevi)
+            f.write('fresdevi=%s\n' % fresdevi)
 
-        f.write('image_type = %s \n' % image_type)
+        f.write('image_type=%s\n' % image_type)
         if image_type == 'CiB_image':
-            f.write('real_path = {} \nimag_path = {} \n'.format(image_path['real'], image_path['imag']))
+            f.write('real_path={}\nimag_path={}\n'.format(image_path['real'], image_path['imag']))
         else:
-            f.write('image_path = {} \n'.format(image_path))
+            f.write('image_path={}\n'.format(image_path))
 
-        f.write('MaxIter=%s \n' % MaxIt)
-        f.write('Toler=%s \n' % Tol)
-        f.write('os_rate=%s \n' % os_rate)
+        f.write('MaxIter=%s\n' % MaxIt)
+        f.write('Toler=%s\n' % Tol)
+        f.write('os_rate=%s\n' % os_rate)
         f.write('tau=%s\n' % tau)
-        f.write('salt_on = %s \n' % salton)
+        f.write('salt_on=%s \n' % salton)
         if salton == 1:
             f.write('salt_prob=%s\n' % salt_prob)
             f.write('salt_inten=%s\n' % salt_intensity)
@@ -822,9 +1105,20 @@ def start_run_null_v():
 #######################################################################    
     
 '''Start to construct panel '''
-    
-    
-    
+# Architecture:
+# PR_panel: Tk.window
+#       |  page_blind_ptycho: blind ptychography tab
+#             | param_frame:
+#             | image_plot_frame:
+#             | text_area:
+#       |  page_null_vector: null vector tab
+#             | param_frame_null_v:
+#             | image_plot_frame_null_v:
+#             | text_area_null_v:
+#
+#
+#
+
 
 PR_panel = tk.Tk()
 PR_panel.title('PhaseReTr_Simulater')
@@ -862,7 +1156,7 @@ image_plot_frame.grid(row = 1, column = 0, columnspan=2, sticky='w')
 
 # show errors text widget
 text_area = tk.Frame(master=page_blind_ptycho)
-text_area.grid(row=1, column=2, columnspan=1, sticky='w')
+text_area.grid(row=1, column=2, columnspan=1, sticky='wn')
 text_area_label_frame = tk.LabelFrame(text_area, width=75, height=20, text='show data')
 text_area_label_frame.grid(row = 0, column = 0, rowspan = 3, columnspan=10, sticky = 'wnes')
 
@@ -1068,10 +1362,6 @@ tk.Label(ALG_SET, text='gamma').grid(row=5, column=0, sticky='w')
 gamma_entry = tk.Entry(ALG_SET, textvariable=gamma, relief='solid', width=3)
 gamma_entry.grid(row=5, column=1)
 
-# inner loop #
-inner_loop_maximum=tk.StringVar()
-
-
 
 ####
 #### NOISE triggered
@@ -1095,6 +1385,11 @@ salt_inten_label.grid(row=2, column=0)
 salt_inten = tk.StringVar()
 salt_inten_entry = tk.Entry(NOISE_TRIGGER, textvariable=salt_inten,state='disabled', width=3)
 salt_inten_entry.grid(row=2,column=1)
+
+# import previous experiment
+import_param_button=tk.Button(param_frame, text='import parameters', command=import_param, relief='solid')
+import_param_button.grid(row=2, column = 2)
+import_param_button.config(height = 2, width = 18)
 
 # start button #
 start_button_blind_ptycho=tk.Button(param_frame,text='start', command=run_ptycho, relief='solid')
@@ -1189,7 +1484,7 @@ image_plot_frame_null_v.grid(row = 1, column = 0, columnspan=2, sticky='w')
 
 # show errors text widget
 text_area_null_v = tk.Frame(master=page_null_vector)
-text_area_null_v.grid(row=1, column=2, columnspan=1, sticky='w')
+text_area_null_v.grid(row=1, column=2, columnspan=1, sticky='wn')
 text_area_label_frame_null_v = tk.LabelFrame(text_area_null_v, width=75, height=20, text='show data')
 text_area_label_frame_null_v.grid(row = 0, column = 0, rowspan = 3, columnspan=10, sticky = 'wnes')
 
@@ -1392,6 +1687,11 @@ salt_inten_label_null_v.grid(row=2, column=0)
 salt_inten_null_v = tk.StringVar()
 salt_inten_entry_null_v = tk.Entry(NOISE_TRIGGER_null_v, textvariable=salt_inten_null_v,state='disabled', width=3)
 salt_inten_entry_null_v.grid(row=2,column=1)
+
+# import previous experiment
+import_param_button_null_v=tk.Button(param_frame_null_v, text='import parameters', command=import_param_null_v, relief='solid')
+import_param_button_null_v.grid(row=2, column = 2)
+import_param_button_null_v.config(height = 2, width = 18)
 
 # start button #
 #start_button=tk.Button(PR_panel,text='start', command=start_run, relief='solid')
