@@ -9,7 +9,7 @@ Email: zheqing@math.ucdavis.edu
 """
 # import matplotlib
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.backends.backend_tkagg
 from matplotlib.figure import Figure
@@ -620,10 +620,10 @@ def start_run_blind_ptycho():
         else:
             recon_im_blind_ptycho = np.real(rec_im)
 
-
     savefig_path = os.path.join(savedata_path, 'fig')
-    #savefigs(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, recon_im, savefig_path)
-
+    savefigs(Iter_blind_ptycho, res_y_blind_ptycho, rel_im_blind_ptycho, rel_mask_blind_ptycho, recon_im_blind_ptycho, savefig_path)
+    saved_message = 'figs saved to {}\n \n'.format(savefig_path)
+    edit_text.insert('insert', saved_message)
  #
  #
  #
@@ -793,23 +793,31 @@ def start_run_null_v():
         else:
             recon_im_null_v = np.real(x_t)
 
+    plt.figure(0)
+    plt.imshow(recon_im_null_v, cmap='gray')
+    plt.colorbar()
+    plt.grid(False)
+    plt.axis('on')
+    plt.title('pert={} patch={} olr={}'.format(perturb, experi_null_v.l_patch, OLR))
+    savefig_path = os.path.join(savedata_path, 'fig')
+    save_path = os.path.join(savefig_path, 'pert={} patch={} olr={}.png'.format(perturb, experi_null_v.l_patch, OLR))
+    plt.savefig(save_path)
+    plt.close(0)
 
-    # plt.imshow(recon_im_null_v, cmap='gray')
-    # plt.title('pert={} patch={} olr={}'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    # savefig_path = os.path.join(savedata_path, 'fig')
-    # save_path = os.path.join(savefig_path, 'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    # plt.savefig(save_path)
-    # plt.close()
-    #
-    # plt.semilogy(Iter_null_v, rel_im_null_v, 'k--', label = 'image rel err')
-    # plt.xlabel('iter')
-    # plt.ylabel('error')
-    # plt.title('error plot')
-    #
-    # save_path = os.path.join(savefig_path,
-    #                          'pert={} patch={} olr={}.png'.format(Perturb_null_v, experi_null_v.l_patch, OLR))
-    # plt.savefig(save_path)
-    # plt.close()
+    plt.figure(1)
+
+    plt.semilogy(Iter_null_v, rel_im_null_v, 'k--', label='image rel err')
+    plt.grid(True)
+    plt.xlabel('iter')
+    plt.ylabel('error')
+    #plt.yticks(np.linspace(min(rel_im_null_v), max(rel_im_null_v) + 1, 6))
+    plt.title('error plot')
+    save_path = os.path.join(savefig_path, 'error plot.png')
+    plt.savefig(save_path)
+    plt.close(1)
+
+    saved_message = 'figs saved to {}\n \n'.format(savefig_path)
+    edit_text_null_v.insert('insert', saved_message)
 
 
 #######################################################################    

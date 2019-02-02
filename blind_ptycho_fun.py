@@ -444,7 +444,7 @@ def getrid_LPS_m(f_0, f_k, n):
     return rec_k1, rec_l1
 
 
-def savefigs(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, x__t, savedata_path):
+def savefigs(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, x__t, savefig_path):
     # x__t is already changed to real value
     plt.figure(0)
     plt.title('Error Plot')
@@ -467,16 +467,17 @@ def savefigs(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, x__t
     plt.semilogy(Iter, relative_DR_maskLPS, 'k--')
 
 
-    error_plot_location = os.path.join(savedata_path, 'error_plot.png')
+    error_plot_location = os.path.join(savefig_path, 'error_plot.png')
     plt.savefig(error_plot_location)
 
-
+    plt.close(0)
     #
     plt.figure(1)
     plt.imshow(x__t, cmap='gray')
-    x__t_plot_location = os.path.join(savedata_path, 'recon_im.png')
+    x__t_plot_location = os.path.join(savefig_path, 'recon_im.png')
     plt.colorbar()
     plt.grid(False)
     plt.axis('off')
     plt.savefig(x__t_plot_location)
+    plt.close(0)
 

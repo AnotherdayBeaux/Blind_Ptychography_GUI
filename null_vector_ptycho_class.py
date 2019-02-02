@@ -92,7 +92,7 @@ class null_vector_ptycho(object):
             self.IM2 = self.IM2[:self.Na][:, :self.Nb]
 
         # # for small image , test code
-        # self.SUBIM = 70
+        # self.SUBIM = 40
         # self.Na, self.Nb = self.SUBIM, self.SUBIM
         #
         # self.IM1 = self.IM1[0:self.SUBIM][:, 0:self.SUBIM]  # test for subimage
