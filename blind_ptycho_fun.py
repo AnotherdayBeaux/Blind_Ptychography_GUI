@@ -93,7 +93,7 @@ def Nos_fft_num_mask2(X, os_rate, mask):
 def Nos_fft_num_mask3(X, os_rate, mask):
     Na, Nb = X.shape
 
-    num_of_masks = 3
+    num_of_masks = 2
     mask1X = mask[0] * X
 
     Y = np.zeros((os_rate * Na, os_rate * Nb * 2), dtype=complex)
@@ -194,7 +194,7 @@ def Nos_ifft_num_mask2(Y, os_rate, mask):
 def Nos_ifft_num_mask3(Y, os_rate, mask):
     Y_Na, Y_Nb = Y.shape
     Na = int(Y_Na / os_rate)
-    Nb = int(Y_Nb / os_rate)
+    Nb = int(Y_Nb / os_rate / 2)
     num_of_masks = 2
     X2 = np.zeros((Na, Nb), dtype=complex)
     X = np.zeros((Na, Nb), dtype=complex)
@@ -216,6 +216,33 @@ def Nos_ifft_num_mask3(Y, os_rate, mask):
     X = X + X2
     X = X * np.sqrt(Na * Nb) / np.sqrt(num_of_masks * os_rate ** 2)
     return X
+
+
+# two projector P_X and P_Y where X represents linear space
+# and Y repre. multidim  torus
+
+# num_mask2 = two different random masks
+def P_X2(q, os_rate, mask, nor_fac):
+
+    x_new = Nos_ifft_num_mask2(q, os_rate, mask) / nor_fac
+    P_Xq = Nos_fft_num_mask2(x_new, os_rate, mask)
+
+    return P_Xq
+
+# num_mask3 = one id mask and one random mask
+def P_X3(q, os_rate, mask, nor_fac):
+
+    x_new = Nos_ifft_num_mask3(q, os_rate, mask) / nor_fac
+    P_Xq = Nos_fft_num_mask3(x_new, os_rate, mask)
+
+    return P_Xq
+
+
+def P_Y(q, b):
+
+    P_Yq = b * q / np.abs(q)
+
+    return P_Yq
 
 
 ###### 3 mask case
@@ -450,6 +477,9 @@ def getrid_LPS_m(f_0, f_k, n):
     rec_k1, rec_l1 = -angle_exp[9][0] / 9 / 2 / np.pi * Na, -angle_exp[0][9] / 9 / 2 / np.pi * Nb
 
     return rec_k1, rec_l1
+
+
+
 
 
 def savefigs(Iter, resi_DR_y, relative_DR_yIMsmall1_5, relative_DR_maskLPS, x__t, savefig_path):
