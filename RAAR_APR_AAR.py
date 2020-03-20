@@ -212,7 +212,7 @@ def main():
                          'mask_delta': 0.5,
                          'MaxIter': 250,
                          'Toler':1e-7,
-                         'rho': 0.5,
+                         'rho': 0.1,
                          'os_rate': 2,
     }
     compare = RAAR_APR_AAR_phase_retrieval(input_parameters)
@@ -245,7 +245,7 @@ def main():
     plt.semilogy(Iter[0], relative_y_APR[0], 'b^:')
     plt.semilogy(Iter[0], relative_y_AAR[0], 'k*--')
     plt.semilogy(Iter[0], relative_y_DR[0], 'g*-')
-    plt.legend(('RAAR 0.9', 'APR', 'AAR', 'DR 0.5'),
+    plt.legend(('RAAR 0.9', 'APR', 'AAR', 'DR 0.1'),
                loc='lower left')
 
     plt.semilogy(Iter[0:-1:5], relative_y_RAAR[0:-1:5], 'ro')
@@ -259,7 +259,7 @@ def main():
     plt.semilogy(Iter, relative_y_DR, 'g-')
 
     save_path_1 = '/Users/zheqingzhang/Documents/phase retrieval/Blind_Ptychography_GUI/workspace'
-    save_path = os.path.join(save_path_1, 'error plot6.png')
+    save_path = os.path.join(save_path_1, 'error plot10.png')
     plt.savefig(save_path)
     plt.close(0)
 

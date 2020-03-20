@@ -240,6 +240,7 @@ class null_vector_ptycho(object):
 
         self.tau = float(input_parameters['tau'])  # means we pick the tau *100 % weak signal
 
+
         self.subNa, self.subNb = self.x_c_p.shape
         self.ind_Z = np.zeros(self.Z.shape, dtype=float)
         for i in range(self.subNa):
